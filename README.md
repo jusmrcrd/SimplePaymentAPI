@@ -1,10 +1,10 @@
 # SimplePaymentAPI
 
-Uma API para confirmação dos dados de pagamento de cartão.
+Uma API simples para simulação de confirmação dos dados de pagamento de cartão.
 
 ## Funcionalidades
 
-- **Criar Agendamento:** Adicionar e confirmar pagamentos;
+- **Confirmar pagamento:** Adicionar e confirmar pagamentos;
 
 ## Instalação
 
