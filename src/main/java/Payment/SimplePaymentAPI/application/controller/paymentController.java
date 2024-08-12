@@ -17,9 +17,7 @@ public class paymentController {
 
     @PostMapping("payment")
     private ResponseEntity<?> Payment(@RequestBody paymentDTO payDTO){
-        //esse pagamento esta valido?
-        //esse pagamento passa pela api do banco?
-        //esse pagamento caso não passar retorna qual erro
+
 
         payService.save(payDTO);
         return ResponseEntity.ok(HttpStatus.ACCEPTED);
