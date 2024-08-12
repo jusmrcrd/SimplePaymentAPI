@@ -22,19 +22,14 @@ public class paymentService {
 
 
     @Transactional
-    public payment save(paymentDTO paymentDTO){
-       payment pay = new payment(
-               paymentDTO.getIdPayment(),
-               paymentDTO.getMethod(),
-               paymentDTO.getFlag(),
-               paymentDTO.getAmount()
-       );
+    public payment save(paymentDTO dto){
+        payment pay = paymentDTO.dtoToPayment(dto);
         return  respPay.save(pay);
     }
 
     @Transactional
-    public void delete(paymentDTO paymentDTO){
-        respPay.delete(respPay.findById(paymentDTO.getIdPayment()).get());
+    public void delete(paymentDTO dto){
+        respPay.delete(respPay.findById(dto.getIdPayment()).get());
     }
 
     @Transactional
@@ -43,26 +38,27 @@ public class paymentService {
     }
 
     @Transactional
-    public Optional<payment> findByid(paymentDTO paymentDTO){
-        return respPay.findById(paymentDTO.getIdPayment());
+    public Optional<payment> findByid(paymentDTO dto){
+        return respPay.findById(dto.getIdPayment());
     }
 
-    public ResponseEntity validation(paymentDTO paymentDTO){
-        if(paymentDTO.getAmount() <= 0){
+    public ResponseEntity validation(paymentDTO dto){
+        if(dto.getAmount() <= 0){
             return ResponseEntity.ok(paymentException
                     .generateFieldError("Amount","Amount value cannot be 0 or less"));
         }
 
-        if(!paymentDTO.getMethod().contains("debit") && !paymentDTO.getMethod().contains("credit")){
+        if(!dto.getMethod().contains("debit") && !dto.getMethod().contains("credit")){
             return ResponseEntity.ok(paymentException
                     .generateFieldError("Method","Method not permited"));
         }
 
-        if(!paymentDTO.getFlag().contains("visa") && !paymentDTO.getFlag().contains("mastercard")){
+        if(!dto.getFlag().contains("visa") && !dto.getFlag().contains("mastercard")){
             return ResponseEntity.ok(paymentException
                     .generateFieldError("Flag","flag not permited"));
         }
 
+        save(dto);
         return ResponseEntity.ok("status:200");
     }
 

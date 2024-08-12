@@ -1,11 +1,9 @@
 package Payment.SimplePaymentAPI.domain.dto;
 
-import jakarta.persistence.Entity;
+import Payment.SimplePaymentAPI.domain.entity.payment;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
 
 @Data
 @AllArgsConstructor
@@ -15,4 +13,16 @@ public class paymentDTO {
     private String method;
     private String flag;
     private Double amount;
+
+
+    public static payment dtoToPayment(paymentDTO paymentDTO){
+        payment pay  = new payment();
+
+        pay.setIdPayment(paymentDTO.getIdPayment());
+        pay.setFlag(paymentDTO.getFlag());
+        pay.setMethod(paymentDTO.getMethod());
+        pay.setAmount(paymentDTO.getAmount());
+
+        return pay;
+    }
 }
