@@ -3,11 +3,13 @@ package Payment.SimplePaymentAPI.application.service;
 import Payment.SimplePaymentAPI.infrastructure.repository.paymentrepository;
 import Payment.SimplePaymentAPI.domain.entity.payment;
 import Payment.SimplePaymentAPI.domain.dto.paymentDTO;
+import Payment.SimplePaymentAPI.exception.paymentException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 import java.util.Optional;
@@ -45,6 +47,23 @@ public class paymentService {
         return respPay.findById(paymentDTO.getIdPayment());
     }
 
+    public ResponseEntity validation(paymentDTO paymentDTO){
+        if(paymentDTO.getAmount() <= 0){
+            return ResponseEntity.ok(paymentException
+                    .generateFieldError("Amount","Amount value cannot be 0 or less"));
+        }
 
+        if(!paymentDTO.getMethod().contains("debit") && !paymentDTO.getMethod().contains("credit")){
+            return ResponseEntity.ok(paymentException
+                    .generateFieldError("Method","Method not permited"));
+        }
+
+        if(!paymentDTO.getFlag().contains("visa") && !paymentDTO.getFlag().contains("mastercard")){
+            return ResponseEntity.ok(paymentException
+                    .generateFieldError("Flag","flag not permited"));
+        }
+
+        return ResponseEntity.ok("status:200");
+    }
 
 }

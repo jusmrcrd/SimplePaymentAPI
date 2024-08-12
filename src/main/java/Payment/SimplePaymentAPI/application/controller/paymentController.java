@@ -17,10 +17,7 @@ public class paymentController {
 
     @PostMapping("payment")
     private ResponseEntity<?> Payment(@RequestBody paymentDTO payDTO){
-
-
-        payService.save(payDTO);
-        return ResponseEntity.ok(HttpStatus.ACCEPTED);
+        return payService.validation(payDTO);
     }
 
 
