@@ -1,12 +1,12 @@
 package Payment.SimplePaymentAPI.domain.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.cglib.core.Local;
+
+import java.time.LocalDate;
 
 @Data
 @Entity
@@ -16,6 +16,7 @@ import lombok.NoArgsConstructor;
 public class payment {
 
    @Id
+   @GeneratedValue(strategy = GenerationType.IDENTITY)
    @Column(name = "id_payment")
    private long  idPayment;
    @Column(name="method")
@@ -25,4 +26,6 @@ public class payment {
    @Column(name="amount")
    private Double amount;
 
+   @Column(name="Data")
+   private LocalDate date = LocalDate.now();
 }
