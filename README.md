@@ -37,7 +37,7 @@ mvn spring-boot:run
 
 #### Confirmar pagamento
 - **Método:** `POST`
-- **URL:** `/`
+- **URL:** `/v1/payment`
 - **Descrição:** manda um Requisito com as informações do pagamento.
 - **Corpo da Requisição:**
 ```json 
