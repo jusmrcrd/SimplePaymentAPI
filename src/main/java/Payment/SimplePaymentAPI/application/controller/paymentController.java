@@ -19,6 +19,5 @@ public class paymentController {
     private ResponseEntity<?> Payment(@RequestBody paymentDTO payDTO){
         return payService.validation(payDTO);
     }
-
-
+    
 }
