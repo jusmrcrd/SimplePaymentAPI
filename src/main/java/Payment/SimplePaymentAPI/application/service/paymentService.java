@@ -20,7 +20,6 @@ public class paymentService {
     @Autowired
     private paymentrepository respPay;
 
-
     @Transactional
     public payment save(paymentDTO dto){
         payment pay = paymentDTO.dtoToPayment(dto);
@@ -42,7 +41,7 @@ public class paymentService {
         return respPay.findById(dto.getIdPayment());
     }
 
-    public ResponseEntity validation(paymentDTO dto){
+    public ResponseEntity<?> validation(paymentDTO dto){
         if(dto.getAmount() <= 0){
             return ResponseEntity.ok(paymentException
                     .generateFieldError("Amount","Amount value cannot be 0 or less"));
@@ -57,7 +56,6 @@ public class paymentService {
             return ResponseEntity.ok(paymentException
                     .generateFieldError("Flag","flag not permited"));
         }
-
         save(dto);
         return ResponseEntity.ok("status:200");
     }
